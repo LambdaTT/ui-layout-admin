@@ -1,5 +1,5 @@
 <template>
-  <q-page :padding="false">
+  <q-page :padding="false" class="q-pa-md">
     <PageHeader :pageTitle="Title" :breadcrumb="Breadcrumb" />
     <div id="page-contents">
       <slot></slot>
