@@ -12,13 +12,13 @@
       </q-toolbar>
 
       <q-card-section>
-        <slot name="content" :data="Data"></slot>
+        <slot></slot>
       </q-card-section>
 
       <q-card-actions class="justify-end">
         <q-btn label="Cancelar" color="grey-8" icon="close" v-close-popup></q-btn>
         <div v-if="!HideActions">
-          <q-btn v-show="!action.hide" v-for="action in Actions" :key="action.label" :label="action.label"
+          <q-btn class="q-ml-sm" v-show="!action.hide" v-for="action in Actions" :key="action.label" :label="action.label"
             :color="action.color" :icon="action.icon" @click="action.fn"></q-btn>
         </div>
       </q-card-actions>
