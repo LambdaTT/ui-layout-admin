@@ -1,11 +1,11 @@
 <template>
   <q-card>
-    <q-card-section class="q-pa-lg bg-teal text-white">
+    <q-card-section :class="`${dense ? 'q-pa-sm' : 'q-pa-lg'} bg-${style.headerBgColor} text-${style.headerTextColor}`">
       <!--Card Header-->
       <div class="row">
         <div class="col-12 col-md-6">
           <span class="text-h6">
-            <q-icon v-if="!!Icon" :name="Icon" size="md"></q-icon>
+            <q-icon v-if="!!Icon" :name="Icon" :size="dense ? 'xs' : 'md'"></q-icon>
             <span v-if="!!Icon">&nbsp;</span>
             {{ Title }}
           </span>
@@ -33,11 +33,28 @@
 
 <script>
 export default {
-  name: 'components-common-card',
+  name: 'ui-layoutadmin-card',
 
   props: {
     Title: String,
-    Icon: String
+    Icon: String,
+    HeaderBgColor: String,
+    HeaderTextColor: String,
+    dense: Boolean,
+  },
+
+  data() {
+    return {
+      style: {
+        headerBgColor: 'teal',
+        headerTextColor: 'white'
+      }
+    }
+  },
+
+  mounted() {
+    if (!!this.HeaderBgColor) this.style.headerBgColor = this.HeaderBgColor;
+    if (!!this.HeaderTextColor) this.style.headerTextColor = this.HeaderTextColor;
   }
 }
 </script>

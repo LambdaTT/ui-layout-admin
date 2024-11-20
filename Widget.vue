@@ -1,28 +1,37 @@
 <template>
-  <q-card class="q-ma-sm">
-    <q-toolbar class="full-width bg-grey-6 text-white">
-      <q-avatar v-if="!!Icon">
-        <q-icon :name="Icon"></q-icon>
-      </q-avatar>
+  <Card :Title="Title" :Icon="Icon" :HeaderBgColor="headerBgColor" :HeaderTextColor="headerTextColor" dense
+    class="q-ma-sm">
+    <template #actions>
+      <slot name="actions"></slot>
+    </template>
 
-      <q-toolbar-title>{{ Title }}</q-toolbar-title>
-
-    </q-toolbar>
-    <q-card-section>
-      <div style="max-height:400px;">
-        <slot></slot>
-      </div>
-    </q-card-section>
-  </q-card>
+    <div style="max-height:400px;">
+      <slot></slot>
+    </div>
+  </Card>
 </template>
 
 <script>
 export default {
-  name: 'components-common-widget',
+  name: 'ui-layoutadmin-widget',
 
   props: {
     Icon: String,
-    Title: String
+    Title: String,
+    HeaderBgColor: String,
+    HeaderTextColor: String,
+  },
+
+  data() {
+    return {
+      headerBgColor: 'grey-6',
+      headerTextColor: 'white'
+    }
+  },
+
+  mounted() {
+    if (!!this.HeaderBgColor) this.headerBgColor = this.HeaderBgColor;
+    if (!!this.HeaderTextColor) this.headerTextColor = this.HeaderTextColor;
   }
 }
 </script>
