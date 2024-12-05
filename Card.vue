@@ -4,7 +4,7 @@
       <!--Card Header-->
       <div class="row">
         <div class="col-12 col-md-6">
-          <span class="text-h6">
+          <span class="text-h6" style="display: flex; gap: 3px;">
             <q-icon v-if="!!Icon" :name="Icon" :size="dense ? 'xs' : 'md'"></q-icon>
             <span v-if="!!Icon">&nbsp;</span>
             {{ Title }}
