@@ -3,8 +3,8 @@
     <q-card-section :class="`${dense ? 'q-pa-sm' : 'q-pa-lg'} bg-${style.headerBgColor} text-${style.headerTextColor}`">
       <!--Card Header-->
       <div class="row">
-        <div class="col-12 col-md-6">
-          <span class="text-h6" >
+        <div class="col-12 col-md-6" style="display: flex; align-items: center;">
+          <span class="text-h6" :style="`display: flex; align-items: center; gap: ${dense ? '1px' : '4px'}`">
             <q-icon v-if="!!Icon" :name="Icon" :size="dense ? 'xs' : 'md'"></q-icon>
             <span v-if="!!Icon">&nbsp;</span>
             {{ Title }}
