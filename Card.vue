@@ -17,7 +17,7 @@
     </q-card-section>
 
     <!--Main Section-->
-    <q-card-section>
+    <q-card-section class="card-main-section">
       <slot></slot>
     </q-card-section>
 
