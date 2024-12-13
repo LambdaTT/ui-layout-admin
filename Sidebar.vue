@@ -6,7 +6,7 @@
       <q-list padding>
         <!-- Link: My Account -->
         <q-item :class="`${myAccountActive ? 'bg-teal text-white' : ''}`" :clickable="true"
-          @click="navTo('/my-account')">
+          @click="navTo('/iam/my-account')">
           <q-tooltip>{{ loggedUser?.fullName }}</q-tooltip>
           <q-item-section avatar>
             <img style="border-radius: 50%; width:25px;" :src="loggedUser?.ds_avatar_img_url">
@@ -140,7 +140,7 @@ export default {
     navTo(url, navItem, subItem) {
       this.$router.push(url);
 
-      if (url == '/my-account') {
+      if (url == '/iam/my-account') {
         this.myAccountActive = true;
         return;
       }
