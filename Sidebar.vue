@@ -125,15 +125,15 @@ export default {
 
   methods: {
     getNavigatorData() {
-      Sidebar.getData()
-        .then((response) => {
-          this.loggedUser = response.data.loggedUser;
+      Sidebar.getData(this.$route.path)
+        .then((navbardata) => {
+          this.loggedUser = navbardata.loggedUser;
           this.loggedUser.fullName = this.loggedUser.ds_first_name + " " + this.loggedUser.ds_last_name;
           if (this.loggedUser.ds_avatar_img_url == null)
             this.loggedUser.ds_avatar_img_url = '/resources/img/unknown-user.jpg';
 
-          this.navigator = response.data.navigator;
-          this.rawNavigator = response.data.navigator;
+          this.navigator = navbardata.navigator;
+          this.rawNavigator = navbardata.navigator;
         });
     },
 
