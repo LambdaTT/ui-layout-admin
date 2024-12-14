@@ -5,10 +5,10 @@
       <slot name="actions"></slot>
     </template>
 
-    <div style="max-height:400px;">
+    <div style="min-height: 250px;">
       <slot></slot>
     </div>
-  </Card>
+    </Card>
 </template>
 
 <script>
@@ -20,6 +20,7 @@ export default {
     Title: String,
     HeaderBgColor: String,
     HeaderTextColor: String,
+    OverflowY: String
   },
 
   data() {
