@@ -11,14 +11,14 @@
         <q-btn flat round dense icon="close" v-close-popup />
       </q-toolbar>
 
-      <q-card-section>
+      <q-card-section class="q-pa-none q-pa-md-md">
         <slot></slot>
       </q-card-section>
 
       <q-card-actions class="justify-end">
-        <q-btn label="Fechar" color="grey-8" icon="close" v-close-popup></q-btn>
+        <q-btn dense label="Fechar" color="grey-8" icon="close" v-close-popup></q-btn>
         <div v-if="!HideActions">
-          <q-btn class="q-ml-sm" v-show="!action.hide" v-for="action in Actions" :key="action.label" :label="action.label"
+          <q-btn dense class="q-ml-sm" v-show="!action.hide" v-for="action in Actions" :key="action.label" :label="action.label"
             :color="action.color" :icon="action.icon" @click="action.fn"></q-btn>
         </div>
       </q-card-actions>
@@ -27,7 +27,7 @@
 </template>
 <script>
 export default {
-  name: 'component-common-modal',
+  name: 'ui-layoutadmin-modal',
 
   props: {
     Title: String,

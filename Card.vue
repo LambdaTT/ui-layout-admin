@@ -3,7 +3,7 @@
     <q-card-section :class="`${dense ? 'q-pa-sm' : 'q-pa-lg'} bg-${style.headerBgColor} text-${style.headerTextColor}`">
       <!--Card Header-->
       <div class="row">
-        <div class="col-12 col-md-6" style="display: flex; align-items: center;">
+        <div class="col-12 col-md-6 q-mb-sm q-mb-md-none" style="display: flex; align-items: center;">
           <span class="text-h6" :style="`display: flex; align-items: center; gap: ${dense ? '1px' : '4px'}`">
             <q-icon v-if="!!Icon" :name="Icon" :size="dense ? 'xs' : 'md'"></q-icon>
             <span v-if="!!Icon">&nbsp;</span>
@@ -17,14 +17,14 @@
     </q-card-section>
 
     <!--Main Section-->
-    <q-card-section class="card-main-section">
+    <q-card-section class="card-main-section q-pa-none q-pa-md-md">
       <slot></slot>
     </q-card-section>
 
     <!--Secondary Sections-->
     <div v-for="(section, name) in $slots" :key="name">
       <q-separator v-if="name != 'actions' && name != 'default'"></q-separator>
-      <q-card-section v-if="name != 'actions' && name != 'default'">
+      <q-card-section class="q-pa-xs q-pa-md-md" v-if="name != 'actions' && name != 'default'">
         <slot :name="name"></slot>
       </q-card-section>
     </div>
@@ -58,3 +58,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.card-main-section {
+  overflow-x: scroll;
+}
+</style>

@@ -1,11 +1,10 @@
 <template>
-  <q-drawer @hide="$emit('drawer-hide')" class="bg-grey-10 text-grey-1 text-body2" v-model="drawerState" show-if-above
-    :mini="miniState" @mouseover="miniState = false" @mouseout="miniState = true" mini-to-overlay bordered
-    :class="$q.dark.isActive ? 'bg-grey-9' : 'bg-grey-3'">
+  <q-drawer @hide="$emit('drawer-hide')" class="bg-grey-10 text-grey-1" v-model="drawerState" show-if-above
+    :mini="miniState" @mouseover="miniState = false" @mouseout="miniState = true" mini-to-overlay bordered>
     <q-scroll-area class="fit" :horizontal-thumb-style="{ opacity: 0 }">
       <q-list padding>
         <!-- Link: My Account -->
-        <q-item :class="`${myAccountActive ? 'bg-teal text-white' : ''}`" :clickable="true"
+        <q-item :class="`${$route.path == '/iam/my-account' ? 'bg-teal text-white' : ''}`" :clickable="true"
           @click="navTo('/iam/my-account')">
           <q-tooltip>{{ loggedUser?.fullName }}</q-tooltip>
           <q-item-section avatar>
@@ -55,7 +54,7 @@
           <div v-for="(item, index) in navigator" :key="index">
             <q-separator v-if="item.type == 'header'" />
             <!-- Item with no children -->
-            <q-item :class="`${item.active ? 'bg-teal text-white' : ''}`" :clickable="item.type == 'item'"
+            <q-item :class="`${$route.path == item.href ? 'bg-teal text-white' : ''}`" :clickable="item.type == 'item'"
               @click="navTo(item.href, item)" v-if="item.subItems.length == 0">
               <q-item-section avatar>
                 <span v-if="item.type == 'header'">&nbsp;</span>
@@ -67,11 +66,11 @@
             </q-item>
 
             <!-- Item with children -->
-            <q-expansion-item group="navbar" :default-opened="item.menuOpen"
-              :class="`${item.active ? 'bg-teal text-white' : ''}`" v-if="item.subItems.length > 0" :icon="item.icon"
-              :label="item.title">
+            <q-expansion-item :default-opened="Boolean(item.menuOpen)"
+              :class="`${$route.path.includes(item.href) ? 'bg-teal text-white' : ''}`" v-if="item.subItems.length > 0"
+              :icon="item.icon" :label="item.title">
               <q-list padding>
-                <q-item :class="`${subitem.active ? 'bg-white text-teal' : ''}`"
+                <q-item :class="`${$route.path == subitem.href ? 'bg-white text-teal' : ''}`"
                   v-for="(subitem, subindex) in item.subItems" :key="subindex" clickable v-ripple
                   @click="navTo(subitem.href, item, subitem)">
                   <q-item-section avatar>
@@ -102,14 +101,13 @@ export default {
   name: 'sidebar-component',
   data() {
     return {
-      drawerState: true,
+      drawerState: false,
       miniState: true,
       loggedUser: null,
       rawNavigator: [],
       navigator: [],
       searchTerm: null,
       searchTimeout: null,
-      myAccountActive: false
     }
   },
 
@@ -137,30 +135,8 @@ export default {
         });
     },
 
-    navTo(url, navItem, subItem) {
+    navTo(url) {
       this.$router.push(url);
-
-      if (url == '/iam/my-account') {
-        this.myAccountActive = true;
-        return;
-      }
-
-      this.myAccountActive = false;
-      if (!!navItem) {
-        for (let i = 0; i < this.navigator.length; i++) {
-          let itm = this.navigator[i];
-          itm.active = false;
-          if (!!itm.subItems) {
-            for (let j = 0; j < itm.subItems.length; j++) {
-              let subitm = itm.subItems[j];
-              subitm.active = false;
-            }
-          }
-        }
-
-        navItem.active = true;
-        if (!!subItem) subItem.active = true;
-      }
     },
 
     search() {
@@ -171,13 +147,20 @@ export default {
           for (let i = 0; i < this.navigator.length; i++) {
             let item = this.navigator[i];
 
-            if (!!item.subItems)
+            if (!!item.subItems) {
+              item.menuOpen = true;
               item.subItems = item.subItems.filter((obj) => obj.tags.includes(this.searchTerm))
+            }
           }
 
           this.navigator = this.navigator.filter((obj) => obj.tags.includes(this.searchTerm));
         }
-        else this.navigator = this.rawNavigator;
+        else {
+          for (let i = 0; i < this.navigator.length; i++) {
+            this.navigator[i].menuOpen = false;
+          }
+          this.navigator = this.rawNavigator;
+        }
 
       }, 300);
     }
