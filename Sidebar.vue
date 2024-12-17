@@ -6,12 +6,12 @@
         <!-- Link: My Account -->
         <q-item :class="`${$route.path == '/iam/my-account' ? 'bg-teal text-white' : ''}`" :clickable="true"
           @click="navTo('/iam/my-account')">
-          <q-tooltip>{{ loggedUser?.fullName }}</q-tooltip>
+          <q-tooltip>Minha Conta</q-tooltip>
           <q-item-section avatar>
             <img style="border-radius: 50%; width:25px;" :src="loggedUser?.ds_avatar_img_url">
           </q-item-section>
           <q-item-section>
-            <span>Minha Conta</span>
+            <span>{{ loggedUser?.fullName }}</span>
           </q-item-section>
         </q-item>
         <q-separator></q-separator>
