@@ -15,13 +15,18 @@
         <slot></slot>
       </q-card-section>
 
-      <q-card-actions class="justify-end">
-        <q-btn dense label="Fechar" color="grey-8" icon="close" v-close-popup></q-btn>
-        <div v-if="!HideActions">
-          <q-btn dense class="q-ml-sm" v-show="!action.hide" v-for="action in Actions" :key="action.label" :label="action.label"
-            :color="action.color" :icon="action.icon" @click="action.fn"></q-btn>
+      <q-card-section>
+        <div class="row justify-end">
+          <div :class="`col-12 q-py-xs-xs q-px-md-sm ${dynamicColClass}`">
+            <q-btn class="full-width" dense label="Fechar" color="grey-8" icon="close" v-close-popup></q-btn>
+          </div>
+          <div v-if="!HideActions" v-for="action in Actions" :key="action.label"
+            :class="`col-12 q-py-xs-xs q-px-md-sm ${dynamicColClass}`">
+            <q-btn dense class="full-width" v-show="!action.hide" :label="action.label" :color="action.color"
+              :icon="action.icon" @click="action.fn"></q-btn>
+          </div>
         </div>
-      </q-card-actions>
+      </q-card-section>
     </q-card>
   </q-dialog>
 </template>
@@ -53,6 +58,12 @@ export default {
 
     modelValue(val) {
       this.show = val;
+    }
+  },
+
+  computed: {
+    dynamicColClass() {
+      return `col-md-${12 / (this.Actions.length + 1)}`
     }
   },
 
